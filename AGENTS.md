@@ -31,7 +31,7 @@ When priorities conflict, choose in this order:
 6. Implement in small, reviewable steps.
 7. Before starting the app for browser-based verification, check whether the expected local app is already running and reuse that instance instead of starting a second server on a new port.
 8. Run relevant checks, fix failures, and re-run checks until they pass or a real blocker remains.
-9. Summarize changes, checks run, risks, and tradeoffs.
+9. Summarize changes, checks run, risks, and tradeoffs. The app is being developed by an individual familiar with coding, but who isn't a full-time engineer. Hence when using engineering terms, concepts, or jargon in your summaries, make sure to define them in plain English.
 
 ## Implementation Plan
 
