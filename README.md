@@ -1,69 +1,45 @@
-# AI-First Web App Agent Scaffold
+# Jaro Project Kit
 
-Reusable GitHub template repository for guiding Codex and other coding agents while building web apps.
+A small collection of agent artefacts that Jaro reuses across projects. It is deliberately not a framework starter or a complete development process.
 
-This is an **agent governance scaffold**, not a React, Next.js, Supabase, or framework starter. It contains concise instructions, situational guidance, and decision records that help agents build maintainable, secure, production-capable apps without bloating the context window.
+The kit keeps the things that are personal and stable here. Third-party skills stay in their upstream repositories and are installed only in projects that need them.
 
-## Use This In A New Project
+## Start a project
 
-Use this scaffold before the app has a real shape. The goal is to turn a rough idea into shared project context, stack decisions, and a phased implementation plan before the coding agent starts making large choices on your behalf.
+1. Copy `AGENTS.template.md` into the target project's root as `AGENTS.md`.
+2. Copy the personal skills you want from `.agents/skills/` into the target project's `.agents/skills/` folder.
+3. Copy `.codex/config.toml` if the project should expose the Playwright MCP server to Codex.
+4. Run only the third-party installer scripts the project needs.
 
-1. Copy this template into a new repo.
-2. Add a markdown file for your idea in `user-docs/`.
-3. Ask your coding agent to pressure-test and refine the idea. For example:
-
-   ```text
-   Tell me what I might be missing. Tell me the things I don't know I don't know so we can refine and build upon this idea further. Tell me what you think is necessary for the MVP stage and what we can do later, especially if we're in a hurry to get this into the hands of a few users so we can iterate based on real user feedback.
-   ```
-
-4. Ask the agent to update the idea file with the refined context.
-5. Ask the agent to run the `incrementally-validate-idea` skill against the idea document and append the output to that same idea file. This should simplify the concept, preserve the core user value, and propose an incremental validation path before planning implementation.
-6. Ask the agent to fill in the Project Context placeholders in `AGENTS.md`.
-7. Discuss the right tech stack for the idea, including backend, auth, database, hosting, payments, analytics, email, file storage, and any privacy or security constraints.
-8. Install project-specific agent skills once the stack is known. Common examples:
-
-   ```sh
-   npx skills add pbakaus/impeccable
-   npx skills add supabase/agent-skills
-   ```
-
-   Install Supabase skills only for projects that use Supabase. For UI-heavy projects, run Impeccable's project-teaching flow after installation so the design guidance has product context.
-9. Ask the agent to update `agent-reference/stack-decisions.md` and any relevant `AGENTS.md` guidance with the chosen stack and constraints.
-10. Ask the agent to run the `generate-implementation-plan` skill against the updated idea document to create `user-docs/implementation-plan/index.md` and phase files.
-11. Review the generated plan, tighten scope, and make sure the first phase has user-verifiable acceptance criteria.
-12. Start building one phase at a time. For example:
-
-   ```text
-   Execute phase 01.
-   ```
-
-During implementation, ask the agent to keep the active phase file updated with progress notes, verification results, blockers, and any material divergences from the original plan.
-
-Codex supports `AGENTS.md` files for repository guidance. In practice, `AGENTS.md` is commonly used as a README-style instruction file for coding agents: short, direct, and specific to the repo.
-
-## What Goes Where
-
-- `AGENTS.md`: always-on agent instructions, constraints, workflow, and pointer map.
-- `agent-reference/`: concise situational guidance the agent should open only when relevant.
-- `decisions/`: minimal ADRs for major choices that explain why, not how.
-- `user-docs/`: idea docs, PRDs, project notes, prompts, and implementation plans.
-- `user-docs/implementation-plan/`: phased MVP plan, phase statuses, progress notes, and divergence log.
-- `scripts/`: setup notes and one-off project instructions.
-
-## Editing Guidance
-
-Edit `AGENTS.md` when the rule must apply to every agent task. Keep it short and high-signal.
-
-Edit `agent-reference/` when guidance is conditional, stack-specific, or only useful for some tasks.
-
-Use `decisions/` when a choice is costly to reverse or affects future implementation. Do not create ADRs for routine implementation details.
-
-## Supabase Agent Skills
-
-Supabase agent skills can be installed separately using Supabase's official skills package:
+For example:
 
 ```sh
-npx skills add supabase/agent-skills
+./scripts/install-impeccable.sh /path/to/project
+./scripts/install-superpowers.sh /path/to/project
+./scripts/install-supabase.sh /path/to/project
 ```
 
-Do this inside projects that actually use Supabase. Do not vendor Supabase skills into this scaffold; refresh them from the official source.
+Omit the path to install into the current folder. Every script targets Codex and uses the installer's project scope. None passes the global-install flag.
+
+## Personal skills
+
+- `incrementally-validate-idea`: reduce an idea to the smallest version that can generate useful evidence.
+- `generate-implementation-plan`: turn a developed idea or requirements document into a phased, living implementation plan.
+- `write-in-jaro-style`: draft and revise repository or public-facing prose using patterns derived from Jaro's published writing.
+
+## Third-party skills
+
+- Impeccable: product and interface design skills from `pbakaus/impeccable`.
+- Superpowers: development workflow skills from `obra/superpowers`.
+- Supabase: Supabase's official agent skills from `supabase/agent-skills`.
+
+These are installed from their sources instead of copied into this repository, so updates remain the upstream maintainers' job.
+
+## What belongs here
+
+- `AGENTS.template.md`: the small set of instructions that should survive across project types.
+- `.agents/skills/`: Jaro's own reusable skills.
+- `.codex/config.toml`: project-scoped Codex configuration.
+- `scripts/`: one project-scoped installer per preferred third-party skill collection.
+- `docs/decision-records/`: the ADR location used by the agent template.
+- `user-docs/implementation-plan/`: the output location used by the implementation-planning skill.
